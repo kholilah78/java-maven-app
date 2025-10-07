@@ -1,6 +1,6 @@
 pipeline {
-    agent any {
-         docker {
+    agent {
+        docker {
             image 'python:3.10'
         }
     }
@@ -29,7 +29,7 @@ pipeline {
             }
             steps {
                 echo "Simulating deploy from branch ${env.BRANCH_NAME}"
-                // Misalnya kamu bisa tambahkan deployment sebenarnya di sini:
+                // Tambahkan deployment nyata di sini jika perlu:
                 // sh 'docker build -t my-flask-app .'
                 // sh 'docker run -d -p 5000:5000 my-flask-app'
             }
