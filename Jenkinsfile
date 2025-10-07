@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python:3.10'
+            args '--user root'
         }
     }
 
@@ -9,7 +10,9 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo "Installing dependencies..."
-                sh 'pip install -r requirements.txt'
+                sh '''
+                    pip install --user -r requirements.txt
+                    export PATH=$PATH:/root/.local/bin
             }
         }
 
