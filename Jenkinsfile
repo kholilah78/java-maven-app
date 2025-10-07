@@ -10,9 +10,11 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo "Installing dependencies..."
+                // Tambahkan flag --user agar tidak terkendala permission
                 sh '''
                     pip install --user -r requirements.txt
                     export PATH=$PATH:/root/.local/bin
+                '''
             }
         }
 
