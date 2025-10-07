@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python:3.10'
-             args '--user root'
+            args '--user root'
         }
     }
 
@@ -10,11 +10,13 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo "Installing dependencies..."
+                // Tambahkan flag --user agar tidak terkendala permission
                 sh '''
                     pip install --user -r requirements.txt
                     export PATH=$PATH:/root/.local/bin
-            } 
-         }
+                '''
+            }
+        }
 
         stage('Run Tests') {
             steps {
