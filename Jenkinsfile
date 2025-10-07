@@ -10,15 +10,21 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo "Installing dependencies..."
-                // Tambahkan flag --user agar tidak terkendala permission
-                sh 'pip install --user -r requirements.txt'
+                sh '''
+                    pip install --user -r requirements.txt
+                    export PATH=$PATH:/root/.local/bin
+                    echo "Dependencies installed successfully."
+                '''
             }
         }
 
         stage('Run Tests') {
             steps {
                 echo "Running unit tests..."
-                sh 'pytest test_app.py --maxfail=1 --disable-warnings -q'
+                sh '''
+                    export PATH=$PATH:/root/.local/bin
+                    pytest test_app.py --maxfail=1 --disable-warnings -q
+                '''
             }
         }
 
@@ -31,7 +37,6 @@ pipeline {
             }
             steps {
                 echo "Simulating deploy from branch ${env.BRANCH_NAME}"
-                // Tambahkan deployment nyata di sini jika perlu:
                 // sh 'docker build -t my-flask-app .'
                 // sh 'docker run -d -p 5000:5000 my-flask-app'
             }
